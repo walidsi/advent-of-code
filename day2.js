@@ -1,121 +1,61 @@
 const { readFileSync } = require('fs');
 
-const contents = readFileSync('./aoc_2_input.txt', 'utf-8')
+const contents = readFileSync('./day2_input.txt', 'utf-8')
 
 const arr = contents.split('\n')
 
 //console.log(arr)
 
-opponent_shape_encoding = {
-    'A': "ROCK",
-    'B': "PAPER",
-    'C': "SICCSOR",
-}
+const round_score_map = new Map();
+round_score_map.set('A X', 4)
+round_score_map.set('A Y', 8)
+round_score_map.set('A Z', 3)
+round_score_map.set('B X', 1)
+round_score_map.set('B Y', 5)
+round_score_map.set('B Z', 9)
+round_score_map.set('C X', 7)
+round_score_map.set('C Y', 2)
+round_score_map.set('C Z', 6)
 
-my_shape_encoding = {
-    'X': "ROCK",
-    'Y': "PAPER",
-    'Z': "SCISSOR",
-}
 
-shape_score = {
-    'X': 1, // Rock
-    'Y': 2, // Paper
-    'Z': 3, // Scissor
-}
+const round_score2_map = new Map()
+round_score2_map.set('A X', 3)
+round_score2_map.set('A Y', 4)
+round_score2_map.set('A Z', 8)
+round_score2_map.set('B X', 1)
+round_score2_map.set('B Y', 5)
+round_score2_map.set('B Z', 9)
+round_score2_map.set('C X', 2)
+round_score2_map.set('C Y', 6)
+round_score2_map.set('C Z', 7)
 
-outcome_score = {
-    'L': 0,
-    'D': 3,
-    'W': 6,
-}
-
-total_score = 0
+let total_score = 0
 
 for (let i = 0; i < arr.length; i++) {
     round = arr[i]
 
-    opp = round[0]
-    me = round[2]
-
-    if (opp == 'A') { // rock
-        if (me == 'X') {
-            total_score += (3 + 1)
-        }
-        else if (me == 'Y') {
-            total_score += (6 + 2)
-        }
-        else if (me == 'Z') {
-            total_score += (0 + 3)
-        }
+    if (round_score_map.get(round)) {
+        total_score += round_score_map.get(round)
     }
-    else if (opp == 'B') { // paper
-        if (me == 'X') {
-            total_score += (0 + 1)
-        }
-        else if (me == 'Y') {
-            total_score += (3 + 2)
-        }
-        else if (me == 'Z') {
-            total_score += (6 + 3)
-        }
-    }
-    else if (opp == 'C') { // scissor
-        if (me == 'X') {
-            total_score += (6 + 1)
-        }
-        else if (me == 'Y') {
-            total_score += (0 + 2)
-        }
-        else if (me == 'Z') {
-            total_score += (3 + 3)
-        }
+    else {
+        console.log(round)
     }
 }
 
 console.log(total_score)
 
-total_score2 = 0
+let total_score2 = 0
 
 for (let i = 0; i < arr.length; i++) {
     round = arr[i]
 
-    opp = round[0]
-    me = round[2]
+    if (round_score2_map.get(round)) {
+        total_score2 += round_score2_map.get(round)
+    }
+    else {
+        console.log(round)
+    }
 
-    if (opp == 'A') { // rock
-        if (me == 'X') { // lose
-            total_score2 += (0 + 3)
-        }
-        else if (me == 'Y') { // draw
-            total_score2 += (3 + 1)
-        }
-        else if (me == 'Z') { // win
-            total_score2 += (6 + 2)
-        }
-    }
-    else if (opp == 'B') { // paper
-        if (me == 'X') {
-            total_score2 += (0 + 1)
-        }
-        else if (me == 'Y') {
-            total_score2 += (3 + 2)
-        }
-        else if (me == 'Z') {
-            total_score2 += (6 + 3)
-        }
-    }
-    else if (opp == 'C') { // scissor
-        if (me == 'X') {
-            total_score2 += (0 + 2)
-        }
-        else if (me == 'Y') {
-            total_score2 += (3 + 3)
-        }
-        else if (me == 'Z') {
-            total_score2 += (6 + 1)
-        }
-    }
 }
 
 console.log(total_score2)

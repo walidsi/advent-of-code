@@ -4,6 +4,7 @@ const contents = readFileSync('./day2_input.txt', 'utf-8')
 
 const arr = contents.split('\n')
 
+// Define the rules
 shape_score = {
     'A': 1, // Rock
     'B': 2, // Paper
@@ -37,28 +38,25 @@ outcome2_score = {
     'C Z': 6 + 1,
 }
 
+// Create and fill the maps
 const round_score_map = new Map();
-score_obj = outcome_score
+const round_score2_map = new Map()
+
 for (let i = 0; i < arr.length; i++) {
     round = arr[i]
     if (round_score_map.get(round) == undefined) {
-        let score = score_obj[round] + shape_score[round[2]]
+        let score = outcome_score[round] + shape_score[round[2]]
         round_score_map.set(round, score)
     }
-}
-
-
-const round_score2_map = new Map()
-score_obj = outcome2_score
-for (let i = 0; i < arr.length; i++) {
-    round = arr[i]
     if (round_score2_map.get(round) == undefined) {
-        let score = score_obj[round]
+        let score = outcome2_score[round]
         round_score2_map.set(round, score)
     }
 }
 
+// Calculate the scores
 let total_score = 0
+let total_score2 = 0
 
 for (let i = 0; i < arr.length; i++) {
     round = arr[i]
@@ -66,25 +64,10 @@ for (let i = 0; i < arr.length; i++) {
     if (round_score_map.get(round)) {
         total_score += round_score_map.get(round)
     }
-    else {
-        console.log(round)
+    if (round_score2_map.get(round)) {
+        total_score2 += round_score2_map.get(round)
     }
 }
 
 console.log(total_score)
-
-let total_score2 = 0
-
-for (let i = 0; i < arr.length; i++) {
-    round = arr[i]
-
-    if (round_score2_map.get(round)) {
-        total_score2 += round_score2_map.get(round)
-    }
-    else {
-        console.log(round)
-    }
-
-}
-
 console.log(total_score2)

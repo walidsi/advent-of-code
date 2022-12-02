@@ -47,19 +47,18 @@ outcome2_score = {
 
 // Create and fill the maps
 const round_score_map = new Map();
-const round_score2_map = new Map()
+let keys = Object.keys(outcome_score)
+keys.forEach(key => {
+    let score = outcome_score[key] + shape_score[key[2]]
+    round_score_map.set(key, score)
+});
 
-for (let i = 0; i < arr.length; i++) {
-    round = arr[i]
-    if (round_score_map.get(round) == undefined) {
-        let score = outcome_score[round] + shape_score[round[2]]
-        round_score_map.set(round, score)
-    }
-    if (round_score2_map.get(round) == undefined) {
-        let score = outcome2_score[round]
-        round_score2_map.set(round, score)
-    }
-}
+const round_score2_map = new Map()
+keys = Object.keys(outcome2_score)
+keys.forEach(key => {
+    score = outcome2_score[key]
+    round_score2_map.set(key, score)
+});
 
 // Calculate the scores
 let total_score = 0
@@ -72,7 +71,6 @@ total_score = arr.reduce((score, round) => {
 total_score2 = arr.reduce((score, round) => {
     return score + round_score2_map.get(round)
 }, 0)
-
 
 console.log(total_score)
 console.log(total_score2)

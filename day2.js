@@ -2,7 +2,14 @@ const { readFileSync } = require('fs');
 
 const contents = readFileSync('./day2_input.txt', 'utf-8')
 
-const arr = contents.split('\n')
+let arr = contents.split('\n')
+
+arr = arr.filter((round) => {
+    if (round == '')
+        return false
+    else
+        return true
+})
 
 // Define the rules
 shape_score = {
@@ -58,16 +65,14 @@ for (let i = 0; i < arr.length; i++) {
 let total_score = 0
 let total_score2 = 0
 
-for (let i = 0; i < arr.length; i++) {
-    round = arr[i]
+total_score = arr.reduce((score, round) => {
+    return score + round_score_map.get(round)
+}, 0)
 
-    if (round_score_map.get(round)) {
-        total_score += round_score_map.get(round)
-    }
-    if (round_score2_map.get(round)) {
-        total_score2 += round_score2_map.get(round)
-    }
-}
+total_score2 = arr.reduce((score, round) => {
+    return score + round_score2_map.get(round)
+}, 0)
+
 
 console.log(total_score)
 console.log(total_score2)

@@ -40,7 +40,6 @@ for (let i = 0; i < contentsArray.length; i++) {
     const compartment1_map = createMap(compartment1)
     const compartment2_map = createMap(compartment2)
 
-
     for (const [key, value] of compartment1_map) {
         if (compartment2_map.has(key)) {
             if (String(key).toUpperCase() === String(key))

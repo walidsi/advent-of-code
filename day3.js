@@ -1,3 +1,5 @@
+// @ts-check
+
 const { assert } = require('console');
 const { readFileSync } = require('fs');
 
@@ -12,6 +14,11 @@ contentsArray = contentsArray.filter((contents) => {
         return true
 })
 
+/**
+ * 
+ * @param {string} s 
+ * @returns {Map} lookup for characters in s
+ */
 function createMap(s) {
     const char_idx_map = new Map()
     for (let i = 0; i < s.length; i++) {
@@ -22,7 +29,6 @@ function createMap(s) {
 }
 
 let sum_priorities = 0
-
 for (let i = 0; i < contentsArray.length; i++) {
     let contents = contentsArray[i]
 

@@ -1,6 +1,5 @@
 const { assert } = require('console');
 const { readFileSync } = require('fs');
-const internal = require('stream');
 
 const contents = readFileSync('./day3_input.txt', 'utf-8')
 
@@ -51,7 +50,6 @@ console.log(`Sum of priorities of duplicate items is: ${sum_priorities}`)
 
 sum_priorities = 0
 for (let i = 0; i < contentsArray.length; i++) {
-    let foundItem = false
 
     const rucksack1_map = createMap(contentsArray[i])
     const rucksack2_map = createMap(contentsArray[i + 1])

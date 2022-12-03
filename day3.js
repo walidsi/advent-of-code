@@ -35,14 +35,16 @@ for (let i = 0; i < contentsArray.length; i++) {
     const compartment1_map = createMap(compartment1)
     const compartment2_map = createMap(compartment2)
 
-    compartment1_map.forEach((value, key) => {
+
+    for (const [key, value] of compartment1_map) {
         if (compartment2_map.has(key)) {
             if (String(key).toUpperCase() === String(key))
                 sum_priorities += String(key).charCodeAt(0) - 'A'.charCodeAt(0) + 1 + 26
             else
                 sum_priorities += String(key).charCodeAt(0) - 'a'.charCodeAt(0) + 1
+            break;
         }
-    })
+    }
 }
 
 console.log(`Sum of priorities of duplicate items is: ${sum_priorities}`)
@@ -55,14 +57,15 @@ for (let i = 0; i < contentsArray.length; i++) {
     const rucksack2_map = createMap(contentsArray[i + 1])
     const rucksack3_map = createMap(contentsArray[i + 2])
 
-    rucksack1_map.forEach((value, key) => {
+    for (const [key, value] of rucksack1_map) {
         if (rucksack2_map.has(key) && rucksack3_map.has(key)) {
             if (String(key).toUpperCase() === String(key))
                 sum_priorities += String(key).charCodeAt(0) - 'A'.charCodeAt(0) + 1 + 26
             else
                 sum_priorities += String(key).charCodeAt(0) - 'a'.charCodeAt(0) + 1
+            break;
         }
-    })
+    }
     i += 2
 }
 

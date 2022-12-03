@@ -13,6 +13,15 @@ contentsArray = contentsArray.filter((contents) => {
         return true
 })
 
+function createMap(s) {
+    const char_idx_map = new Map()
+    for (let i = 0; i < s.length; i++) {
+        const c = s[i]
+        char_idx_map.set(c, i)
+    }
+    return char_idx_map
+}
+
 let sum_priorities = 0
 
 for (let i = 0; i < contentsArray.length; i++) {
@@ -22,23 +31,18 @@ for (let i = 0; i < contentsArray.length; i++) {
     const compartment2 = contents.slice(contents.length / 2, contents.length)
 
     assert(compartment1.length == compartment2.length)
-    let foundItem = false
-    for (let i1 = 0; i1 < compartment1.length; i1++) {
-        c1 = compartment1[i1]
-        for (let i2 = 0; i2 < compartment2.length; i2++) {
-            c2 = compartment2[i2]
-            if (c1 === c2) {
-                foundItem = true
-                if (String(c1).toUpperCase() === String(c2))
-                    sum_priorities += String(c1).charCodeAt(0) - 'A'.charCodeAt(0) + 1 + 26
-                else
-                    sum_priorities += String(c1).charCodeAt(0) - 'a'.charCodeAt(0) + 1
-                break
-            }
+
+    const compartment1_map = createMap(compartment1)
+    const compartment2_map = createMap(compartment2)
+
+    compartment1_map.forEach((value, key) => {
+        if (compartment2_map.has(key)) {
+            if (String(key).toUpperCase() === String(key))
+                sum_priorities += String(key).charCodeAt(0) - 'A'.charCodeAt(0) + 1 + 26
+            else
+                sum_priorities += String(key).charCodeAt(0) - 'a'.charCodeAt(0) + 1
         }
-        if (foundItem === true)
-            break
-    }
+    })
 }
 
 console.log(`Sum of priorities of duplicate items is: ${sum_priorities}`)
@@ -46,27 +50,19 @@ console.log(`Sum of priorities of duplicate items is: ${sum_priorities}`)
 sum_priorities = 0
 for (let i = 0; i < contentsArray.length; i++) {
     let foundItem = false
-    for (let i1 = 0; i1 < contentsArray[i].length; i1++) {
-        c1 = contentsArray[i][i1]
-        for (let i2 = 0; i2 < contentsArray[i + 1].length; i2++) {
-            c2 = contentsArray[i + 1][i2]
-            for (let i3 = 0; i3 < contentsArray[i + 2].length; i3++) {
-                c3 = contentsArray[i + 2][i3]
-                if (c1 === c2 && c2 === c3) {
-                    foundItem = true
-                    if (String(c1).toUpperCase() === String(c2))
-                        sum_priorities += String(c1).charCodeAt(0) - 'A'.charCodeAt(0) + 1 + 26
-                    else
-                        sum_priorities += String(c1).charCodeAt(0) - 'a'.charCodeAt(0) + 1
-                    break
-                }
-            }
-            if (foundItem === true)
-                break
+
+    const rucksack1_map = createMap(contentsArray[i])
+    const rucksack2_map = createMap(contentsArray[i + 1])
+    const rucksack3_map = createMap(contentsArray[i + 2])
+
+    rucksack1_map.forEach((value, key) => {
+        if (rucksack2_map.has(key) && rucksack3_map.has(key)) {
+            if (String(key).toUpperCase() === String(key))
+                sum_priorities += String(key).charCodeAt(0) - 'A'.charCodeAt(0) + 1 + 26
+            else
+                sum_priorities += String(key).charCodeAt(0) - 'a'.charCodeAt(0) + 1
         }
-        if (foundItem === true)
-            break
-    }
+    })
     i += 2
 }
 

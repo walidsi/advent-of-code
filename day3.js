@@ -19,7 +19,7 @@ contentsArray = contentsArray.filter((contents) => {
  * @param {string} s 
  * @returns {Map} lookup for characters in s
  */
-function createMap(s) {
+function createLookup(s) {
     const char_idx_map = new Map()
     for (let i = 0; i < s.length; i++) {
         const c = s[i]
@@ -37,11 +37,11 @@ for (let i = 0; i < contentsArray.length; i++) {
 
     assert(compartment1.length == compartment2.length)
 
-    const compartment1_map = createMap(compartment1)
-    const compartment2_map = createMap(compartment2)
+    const compartment1_lookup = createLookup(compartment1)
+    const compartment2_lookup = createLookup(compartment2)
 
-    for (const [key, value] of compartment1_map) {
-        if (compartment2_map.has(key)) {
+    for (const [key, value] of compartment1_lookup) {
+        if (compartment2_lookup.has(key)) {
             if (String(key).toUpperCase() === String(key))
                 sum_priorities += String(key).charCodeAt(0) - 'A'.charCodeAt(0) + 1 + 26
             else
@@ -56,9 +56,9 @@ console.log(`Sum of priorities of duplicate items is: ${sum_priorities}`)
 sum_priorities = 0
 for (let i = 0; i < contentsArray.length; i++) {
 
-    const rucksack1_map = createMap(contentsArray[i])
-    const rucksack2_map = createMap(contentsArray[i + 1])
-    const rucksack3_map = createMap(contentsArray[i + 2])
+    const rucksack1_map = createLookup(contentsArray[i])
+    const rucksack2_map = createLookup(contentsArray[i + 1])
+    const rucksack3_map = createLookup(contentsArray[i + 2])
 
     for (const [key, value] of rucksack1_map) {
         if (rucksack2_map.has(key) && rucksack3_map.has(key)) {
